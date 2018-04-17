@@ -58,11 +58,10 @@
     <div class="container">
       <div class="options-box">
         <h1>Find Your School In Hyderabad</h1>
-        <input placeholder="Search Your Place of Interest"  data-bind="value: searchTerm">
+        <input data-bind="value: searchSchool">
 		 
-		<h1>Places</h1>
-            <hr>
-		<ul data-bind="foreach: filteredList">
+		<h1>Schools in Hyderabad </h1>
+		<ul data-bind="foreach: searchSchools">
 			<li>
 				<span class="place" id="place" data-bind="text: title, click: bounce"> </span>
 			</li>

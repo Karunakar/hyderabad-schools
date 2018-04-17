@@ -72,15 +72,8 @@ SchoolClass = function(data) {
 };
 var ViewModel = function() {
 	var self = this;
-	
-    this.all_locations = ko.observableArray([]);
-	
-	this.searchSchools = ko.observable('');
+	this.all_locations = ko.observableArray([]);
 
-	this.firstName = ko.observable('');
-	
-	
-	
 	map = new google.maps.Map(document.getElementById('map'), {
 	// center: {lat: 40.7413549, lng: -73.9980244},
 		//center: {lat: 12.94715, lng: 77.57888},
@@ -88,36 +81,30 @@ var ViewModel = function() {
 		zoom: 10
 	});
 	
-	
-	
     initial_locations.forEach(function(location_obj){
 		self.all_locations.push( new SchoolClass(location_obj));
     }); 
 	
+	this.searchSchool = ko.observable('');
 
-   
-	
-	// this.searchTerm = ko.observable('');
-	this.searchTerm = ko.observable('');
-
-	this.filteredList = ko.computed( function() {
+	this.searchSchools = ko.computed( function() {
 		//return self.all_locations();
-        var filter = self.searchTerm().toLowerCase();
+        var filter = self.searchSchool().toLowerCase();
 		
         if (!filter) {
-			self.all_locations().forEach(function(locationItem){
-                locationItem.visible(true);
+			self.all_locations().forEach(function(school){
+                school.visible(true);
             });
             return self.all_locations();
         } else {
 			//alert(filter);
-            return ko.utils.arrayFilter(self.all_locations(), function(locationItem) {
-				alert(locationItem);
-								alert(locationItem.long);
+            return ko.utils.arrayFilter(self.all_locations(), function(school) {
+				alert(school);
+								alert(school.long);
 
-                var string = locationItem.title.toLowerCase();
+                var string = school.title.toLowerCase();
                 var result = (string.search(filter) >= 0);
-                locationItem.visible(result);
+                school.visible(result);
                 return result;
             });
 			
