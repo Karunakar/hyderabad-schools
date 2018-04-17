@@ -38,12 +38,7 @@ SchoolClass = function(data) {
 	
 	this.marker.setMap(map);
 	
-	/*this.showMarker = ko.computed(function() {
-		this.marker.setMap(map);
-		return true;
-    }, this);*/
 	
-	// Only makes the one selected marker visible.
     this.showMarker = ko.computed(function() {
         if(this.visible() === true) {
             this.marker.setMap(map);
@@ -61,23 +56,29 @@ SchoolClass = function(data) {
         self.infoWindow.setContent(self.contentString);
 
         self.infoWindow.open(map, this);
-
+		
+		self.marker.setAnimation(google.maps.Animation.BOUNCE);
+		
+        setTimeout(function() {
+            self.marker.setAnimation(null);
+        }, 2100);
        
 	 });
+	 
+	this.bounce = function() {
+        google.maps.event.trigger(self.marker, 'click');
+    };
 		
 };
 var ViewModel = function() {
 	var self = this;
-	// alert("ViewModel");
-	 // Initializes a blank array for locations
+	
     this.all_locations = ko.observableArray([]);
 	
 	this.searchSchools = ko.observable('');
 
 	this.firstName = ko.observable('');
 	
-	//this.locationList = ko.observableArray([]);
-	//this.locationList = ko.observableArray([]);
 	
 	
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -122,6 +123,10 @@ var ViewModel = function() {
 			
         }
     }, self);
+	
+	//elf.marker.setAnimation(google.maps.Animation.BOUNCE);
+	
+	
 	
 	
     
