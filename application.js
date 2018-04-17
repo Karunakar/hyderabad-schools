@@ -50,7 +50,7 @@ SchoolClass = function(data) {
 		
         setTimeout(function() {
             self.marker.setAnimation(null);
-        }, 2100);
+        }, 100);
        
 	 });
 	 
@@ -131,8 +131,6 @@ var ViewModel = function() {
         ];
 
 	map = new google.maps.Map(document.getElementById('map'), {
-	// center: {lat: 40.7413549, lng: -73.9980244},
-		//center: {lat: 12.94715, lng: 77.57888},
 		center: {lat: 17.498038, lng: 78.410369},
 		zoom: 11,
 		styles: styles
@@ -146,7 +144,6 @@ var ViewModel = function() {
 	this.searchSchool = ko.observable('');
 
 	this.searchSchools = ko.computed( function() {
-		//return self.all_locations();
         var search_school = self.searchSchool().toLowerCase();
 		
         if (!search_school) {
@@ -155,11 +152,9 @@ var ViewModel = function() {
             });
             return self.all_locations();
         } else {
-			//alert(search_school);
+			
             return ko.utils.arrayFilter(self.all_locations(), function(school) {
-				alert(school);
-								alert(school.long);
-
+				
                 var string = school.title.toLowerCase();
                 var result = (string.search(search_school) >= 0);
                 school.visible(result);
