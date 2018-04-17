@@ -148,20 +148,21 @@ var ViewModel = function() {
 	this.searchSchools = ko.computed( function() {
         var search_school = self.searchSchool().toLowerCase();
 		
-        if (!search_school) {
-			self.all_locations().forEach(function(school){
-                school.visible(true);
-            });
-            return self.all_locations();
-        } else {
-			
-            return ko.utils.arrayFilter(self.all_locations(), function(school) {
+        if (search_school) {
+			return ko.utils.arrayFilter(self.all_locations(), function(school) {
 				
                 var string = school.title.toLowerCase();
                 var result = (string.search(search_school) >= 0);
                 school.visible(result);
                 return result;
             });
+			
+        } else {
+			
+           self.all_locations().forEach(function(school){
+                school.visible(true);
+            });
+            return self.all_locations(); 
 			
         }
     }, self);
