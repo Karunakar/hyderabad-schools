@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <script src = "https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js" 
+         type = "text/javascript"></script>
+  <script src="./application.js"> </script>
     <style>
       html,
       body {
@@ -10,131 +13,84 @@
         padding: 0;
       }
 
-      #map {
+      .container {
         height: 100%;
+        position: relative;
+      }
+
+      input {
+        font-size: 12px;
+      }
+
+      h1 {
+        color: #525454;
+        font-size: 22px;
+        margin: 0 0 10px 0;
+        text-align: center;
+      }
+
+      #hide-listings,
+      #show-listings {
+        width: 48%;
+      }
+
+      #map {
+        bottom:0px;
+        height: 100%;
+        left: 362px;
+        position: absolute;
+        right: 0px;
+      }
+
+      .options-box {
+        background: #fff;
+        border: 1px solid #999;
+        border-radius: 3px;
+        height: 100%;
+        line-height: 35px;
+        padding: 10px 10px 30px 10px;
+        text-align: left;
+        width: 340px;
       }
     </style>
   </head>
   <body>
-    <div id="map"></div>
-    <script>
-      var map;
+  
+    <div class="container">
+				
 
-      // Create a new blank array for all the listing markers.
-      var markers = [];
+			<div class="options-box">
+			<h1>Find Your School In Hyderabad</h1>
+				<input data-bind="value: searchSchool">
+				 
+				 
+				 
+				<h4>Results of Schools </h4>
+				<ul data-bind="foreach: searchSchools">
+					<li>
+						<span class="place" id="place" data-bind="text: title, click: bounce"> </span>
+					</li>
+				</ul>
+			
+			</div>
+		<div id="map"></div>
+    </div>
 
-      function initMap() {
-        // Constructor creates a new map - only center and zoom are required.
-        map = new google.maps.Map(document.getElementById('map'), {
-          // center: {lat: 40.7413549, lng: -73.9980244},
-		  center: {lat: 17.387140, lng: 78.2827},
-          zoom: 13
-        });
-
-        // These are the real estate listings that will be shown to the user.
-        // Normally we'd have these in a database instead.
-        var locations = [
-          {title: 'Montessori High School', location: {lat: 17.498028, lng: 78.410369}},
-          {title: 'Priyadarshini High School', location: {lat: 17.388872052208015, lng:  78.40040017037474}},
-          {title: 'Nagarjuna Grammar High School', location: {lat: 17.49173, lng: 78.325663}},
-          ];
-
-        var largeInfowindow = new google.maps.InfoWindow();
-        var bounds = new google.maps.LatLngBounds();
-
-        // The following group uses the location array to create an array of markers on initialize.
-        for (var i = 0; i < locations.length; i++) {
-          // Get the position from the location array.
-          var position = locations[i].location;
-          var title = locations[i].title;
-          // Create a marker per location, and put into markers array.
-          var marker = new google.maps.Marker({
-            map: map,
-            position: position,
-            title: title,
-            animation: google.maps.Animation.DROP,
-            id: i
-          });
-          // Push the marker to our array of markers.
-          markers.push(marker);
-          // Create an onclick event to open an infowindow at each marker.
-          marker.addListener('click', function() {
-            populateInfoWindow(this, largeInfowindow);
-          });
-          bounds.extend(markers[i].position);
-        }
-        // Extend the boundaries of the map for each marker
-        map.fitBounds(bounds);
-      }
-
-      // This function populates the infowindow when the marker is clicked. We'll only allow
-      // one infowindow which will open at the marker that is clicked, and populate based
-      // on that markers position.
-      function populateInfoWindow(marker, infowindow) {
-        // Check to make sure the infowindow is not already opened on this marker.
-        if (infowindow.marker != marker) {
-          infowindow.marker = marker;
-          infowindow.setContent('<div>' + marker.title + '</div>');
-          infowindow.open(map, marker);
-          // Make sure the marker property is cleared if the infowindow is closed.
-          infowindow.addListener('closeclick',function(){
-            infowindow.setMarker = null;
-          });
-        }
-      }
-    </script>
+	
+	
 
     <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxjIKxD3TS0h5zOmv0srLyJ-LMtP-qZs4&v=3&callback=initMap">
+        src=
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyDxjIKxD3TS0h5zOmv0srLyJ-LMtP-qZs4&v=3&callback=initMap">
     </script>
 
   </body>
 </html>
 
+<script>
 
-<!--
-<!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      html,
-      body {
-        font-family: Arial, sans-serif;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      #map {
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script>
-     
-	  var map;
-      function initMap() {
-        // Constructor creates a new map - only center and zoom are required.
-        map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: 17.387140, lng: 78.2827},
-          //center: {lat: 40.7413549, lng: -73.9980244},
-          zoom: 13
-        });
-        var tribeca = {lat: 17.41925274754248, lng: 78.44269675327537};
-        var marker = new google.maps.Marker({
-          position: tribeca,
-          map: map,
-          title: 'First Marker!'
-        });
-      }
-    </script>
-
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxjIKxD3TS0h5zOmv0srLyJ-LMtP-qZs4&v=3&callback=initMap">
-    </script>
-
-  </body>
-</html>
--->
+function initMap() {
+    ko.applyBindings(new ViewModel());
+	//ko.applyBindings(new ViewModel());
+}
+</script>
