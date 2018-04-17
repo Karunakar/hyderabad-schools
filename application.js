@@ -147,21 +147,21 @@ var ViewModel = function() {
 
 	this.searchSchools = ko.computed( function() {
 		//return self.all_locations();
-        var filter = self.searchSchool().toLowerCase();
+        var search_school = self.searchSchool().toLowerCase();
 		
-        if (!filter) {
+        if (!search_school) {
 			self.all_locations().forEach(function(school){
                 school.visible(true);
             });
             return self.all_locations();
         } else {
-			//alert(filter);
+			//alert(search_school);
             return ko.utils.arrayFilter(self.all_locations(), function(school) {
 				alert(school);
 								alert(school.long);
 
                 var string = school.title.toLowerCase();
-                var result = (string.search(filter) >= 0);
+                var result = (string.search(search_school) >= 0);
                 school.visible(result);
                 return result;
             });
@@ -169,7 +169,7 @@ var ViewModel = function() {
         }
     }, self);
 	
-	//elf.marker.setAnimation(google.maps.Animation.BOUNCE);
+	
 	
 	
 	
@@ -178,17 +178,4 @@ var ViewModel = function() {
 };
 
 
-
-/*var ViewModel = function(first, last) {
-    this.firstName = ko.observable(first);
-    this.lastName = ko.observable(last);
- 
-    this.fullName = ko.computed(function() {
-		alert(1);
-        // Knockout tracks dependencies automatically. It knows that fullName depends on firstName and lastName, because these get called when evaluating fullName.
-        return this.firstName() + " " + this.lastName();
-    }, this);
-}; */
- 
-//ko.applyBindings(new ViewModel());
 
