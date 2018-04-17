@@ -62,6 +62,8 @@ SchoolClass = function(data) {
 var ViewModel = function() {
 	var self = this;
 	this.all_locations = ko.observableArray([]);
+	this.searchSchool = ko.observable('');
+
 	
 	var styles = [
           {
@@ -133,6 +135,7 @@ var ViewModel = function() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 17.498038, lng: 78.410369},
 		zoom: 11,
+		animation: google.maps.Animation.DROP,
 		styles: styles
 
 	});
@@ -141,7 +144,6 @@ var ViewModel = function() {
 		self.all_locations.push( new SchoolClass(location_obj));
     }); 
 	
-	this.searchSchool = ko.observable('');
 
 	this.searchSchools = ko.computed( function() {
         var search_school = self.searchSchool().toLowerCase();
