@@ -1,17 +1,13 @@
 var map;
-
-var markers = [];
-
-var default_locations;
-
 var location;
+var markers = [];
+var default_locations;
 
 var initial_locations = [
 	{title: 'Montessori High School', location: {lat: 17.498038, lng: 78.410369}},
 	{title: 'Priyadarshini High School', location: {lat: 17.388872052208015, lng:  78.40040017037474}},
 	{title: 'Nagarjuna Grammar High School', location: {lat: 17.49173, lng: 78.325663}}
 ]
-
 
 SchoolClass = function(data) {
 	var self = this;
@@ -20,15 +16,10 @@ SchoolClass = function(data) {
     this.long = data.location.lng;
 	
 	this.visible = ko.observable(true);
-	
-	
-    // this.contentString = '<div>' + data.title + '</div>';
-	
+		
 	this.largeInfowindow = new google.maps.InfoWindow();
-
   
     this.infoWindow = new google.maps.InfoWindow({content: self.contentString});
-
     
     this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(data.location.lat, data.location.lng),
@@ -38,7 +29,6 @@ SchoolClass = function(data) {
 	
 	this.marker.setMap(map);
 	
-	
     this.showMarker = ko.computed(function() {
         if(this.visible() === true) {
             this.marker.setMap(map);
@@ -47,11 +37,10 @@ SchoolClass = function(data) {
         }
         return true;
     }, this);
-
-		
+	
 	
 	this.marker.addListener('click', function(){
-			self.contentString = '<div class="info-window-content"><div class="title"><b>' + data.title + "</b></div>";
+			self.contentString = '<div ><b>' + data.title + "</b></div>";
 
         self.infoWindow.setContent(self.contentString);
 
@@ -145,7 +134,7 @@ var ViewModel = function() {
 	// center: {lat: 40.7413549, lng: -73.9980244},
 		//center: {lat: 12.94715, lng: 77.57888},
 		center: {lat: 17.498038, lng: 78.410369},
-		zoom: 10,
+		zoom: 11,
 		styles: styles
 
 	});
