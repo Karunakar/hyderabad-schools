@@ -24,7 +24,8 @@ SchoolClass = function(data) {
     this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(data.location.lat, data.location.lng),
         map: map,
-        title: data.title
+        title: data.title,
+		animation: google.maps.Animation.DROP
     });
 	
 	this.marker.setMap(map);

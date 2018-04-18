@@ -57,13 +57,10 @@
   <body>
   
     <div class="container">
-				
-
 			<div class="options-box">
 			<h1>Find Your School In Hyderabad</h1>
 				<input data-bind="value: searchSchool">
-				 
-				 
+			
 				 
 				<h4>Results of Schools </h4>
 				<ul data-bind="foreach: searchSchools">
@@ -91,6 +88,5 @@
 
 function initMap() {
     ko.applyBindings(new ViewModel());
-	//ko.applyBindings(new ViewModel());
 }
 </script>
