@@ -49,9 +49,7 @@ SchoolClass = function(data) {
 		
 		self.marker.setAnimation(google.maps.Animation.BOUNCE);
 		
-        setTimeout(function() {
-            self.marker.setAnimation(null);
-        }, 100);
+        
        
 	 });
 	 
@@ -147,20 +145,21 @@ var ViewModel = function() {
 	
 
 	this.searchSchools = ko.computed( function() {
-        var search_school = self.searchSchool().toLowerCase();
-		
+		var search_school = self.searchSchool().toLowerCase();
         if (search_school) {
 			return ko.utils.arrayFilter(self.all_locations(), function(school) {
 				
-                var string = school.title.toLowerCase();
-                var result = (string.search(search_school) >= 0);
-                school.visible(result);
-                return result;
+                var school_in_lower = school.title.toLowerCase();
+                var school_enabled = (school_in_lower.search(search_school) >= 0);
+                school.visible(school_enabled);
+                return school_enabled;
             });
 			
-        } else {
+        } 
+		else 
+		{
 			
-           self.all_locations().forEach(function(school){
+			self.all_locations().forEach(function(school){
                 school.visible(true);
             });
             return self.all_locations(); 
