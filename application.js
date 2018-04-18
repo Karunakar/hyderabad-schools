@@ -3,7 +3,7 @@ var location;
 var markers = [];
 var default_locations;
 
-var initial_locations = [
+var initial_schools = [
 	{title: 'Montessori High School', location: {lat: 17.498038, lng: 78.410369}},
 	{title: 'Priyadarshini High School', location: {lat: 17.388872052208015, lng:  78.40040017037474}},
 	{title: 'Nagarjuna Grammar High School', location: {lat: 17.49173, lng: 78.325663}}
@@ -13,12 +13,10 @@ SchoolClass = function(data) {
 	var self = this;
     this.title = data.title;
     this.lat = data.location.lat;
-    this.long = data.location.lng;
+    this.lng = data.location.lng;
 	
-	this.visible = ko.observable(true);
-		
-	this.largeInfowindow = new google.maps.InfoWindow();
-  
+	this.enabled = ko.observable(true);		
+	this.largeInfowindow = new google.maps.InfoWindow();  
     this.infoWindow = new google.maps.InfoWindow({content: self.contentString});
     
     this.marker = new google.maps.Marker({
@@ -31,9 +29,12 @@ SchoolClass = function(data) {
 	this.marker.setMap(map);
 	
     this.showMarker = ko.computed(function() {
-        if(this.visible() === true) {
+        if(this.enabled() === true) 
+		{
             this.marker.setMap(map);
-        } else {
+        } 
+		else 
+		{
             this.marker.setMap(null);
         }
         return true;
@@ -41,7 +42,7 @@ SchoolClass = function(data) {
 	
 	
 	this.marker.addListener('click', function(){
-			self.contentString = '<div ><b>' + data.title + "</b></div>";
+		self.contentString = '<div ><b>' + data.title + "</b></div>";
 
         self.infoWindow.setContent(self.contentString);
 
@@ -53,7 +54,7 @@ SchoolClass = function(data) {
        
 	 });
 	 
-	this.bounce = function() {
+	this.Bounce = function() {
         google.maps.event.trigger(self.marker, 'click');
     };
 		
@@ -131,7 +132,8 @@ var ViewModel = function() {
           }
         ];
 
-	map = new google.maps.Map(document.getElementById('map'), {
+	map = new google.maps.Map(document.getElementById('map'),
+	{
 		center: {lat: 17.498038, lng: 78.410369},
 		zoom: 11,
 		animation: google.maps.Animation.DROP,
@@ -139,39 +141,36 @@ var ViewModel = function() {
 
 	});
 	
-    initial_locations.forEach(function(location_obj){
+    initial_schools.forEach(function(location_obj)
+	{
 		self.all_locations.push( new SchoolClass(location_obj));
     }); 
 	
 
 	this.searchSchools = ko.computed( function() {
 		var search_school = self.searchSchool().toLowerCase();
-        if (search_school) {
-			return ko.utils.arrayFilter(self.all_locations(), function(school) {
+        if (search_school) 
+		{
+			return ko.utils.arrayFilter(self.all_locations(), function(school) 
+			{
 				
                 var school_in_lower = school.title.toLowerCase();
                 var school_enabled = (school_in_lower.search(search_school) >= 0);
-                school.visible(school_enabled);
+                school.enabled(school_enabled);
                 return school_enabled;
             });
 			
         } 
 		else 
 		{
-			
-			self.all_locations().forEach(function(school){
-                school.visible(true);
+			self.all_locations().forEach(function(school)
+			{
+                school.enabled(true);
             });
             return self.all_locations(); 
 			
         }
     }, self);
-	
-	
-	
-	
-	
-	
     
 };
 
