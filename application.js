@@ -30,9 +30,8 @@ SchoolClass = function(data) {
 	self.address = "";
 	
 	this.enabled = ko.observable(true);		
-	this.largeInfowindow = new google.maps.InfoWindow();  
-    this.infoWindow = new google.maps.InfoWindow({content: self.contentString});
-    
+
+	
     this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(data.location.lat, data.location.lng),
         map: map,
@@ -75,10 +74,9 @@ SchoolClass = function(data) {
 					
 			success: function(result){
 				var venue = result.response.venues[0];
-				 //alert(result.location.formattedAddress[0]);
 				 self.id = venue.id;
 				 self.name = venue.name;
-				 self.country = venue.country;
+				 self.country = venue.location.country;
 				 self.address = venue.location.formattedAddress[0] ;
 				 if (typeof venue.location.formattedAddress[0] === 'undefined') {
 					self.address = "";
@@ -86,7 +84,7 @@ SchoolClass = function(data) {
 				
 				},
 			error : function(e) {
-				alert("There is any issue with  FORESQUERE APIs");
+				alert("There is any issue with API & Please contact the Development team ");
 				console.log("ERROR: ", e);
 			}	
 		});	
@@ -115,6 +113,11 @@ SchoolClass = function(data) {
 		       
        
 	 });
+	 
+	 
+	this.largeInfowindow = new google.maps.InfoWindow();  
+    this.infoWindow = new google.maps.InfoWindow({content: self.contentString});
+  
 	 
 	this.Bounce = function() {
         google.maps.event.trigger(self.marker, 'click');
