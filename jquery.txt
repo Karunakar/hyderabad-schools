@@ -1,0 +1,26 @@
+ var FOREQUERE_SECREATCODE = "WFCFRLBFF2554T35P5AB0XQANYHD1TAP0IBPFEG40GSJ1HZY"
+ var FOREQUERE_CLIENT_ID = "DSKHWK3XN2XPR2NKZFLORNPRMUU5MR4YTZDY33D3XRFGBSOF"
+ var FOREQUERE_VERSION = "20180323"
+ var FOREQUERE_QUERY = "school"
+ var FOREQUERE_URL = "https://api.foursquare.com/v2/venues/search"
+	 
+	 
+	 $.ajax({
+		type : "GET",
+		url : FOREQUERE_URL,
+		success: function(result){
+			  var detailedLogs = "<tr><td>" + result.data.detailedLog + "</td> </tr>" ;
+			  var job_name = "<tr><td>" + result.data.jobName + "</td> </tr>" ;
+			  $( "#job_logs tbody" ).empty();
+			  $("#jobName span").empty();
+			  $("#job_logs tbody").append(detailedLogs);
+			  $("#jobName span").append(job_name);
+			},
+		error : function(e) {
+			alert("There is any issue with APIs and please contact the Kepler development team");
+			console.log("ERROR: ", e);
+		}	
+	});	
+	
+
+ 
