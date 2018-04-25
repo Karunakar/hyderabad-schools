@@ -98,18 +98,24 @@ SchoolClass = function(data) {
 	'<div >' + self.address + "</div>" +
 	'<div >' + self.country + "</div></div>";
 	
+	
 	this.marker.addListener('click', function(){
-		self.contentString = '<div ><div ><b>' + data.title + "</b></div>" +
+	self.contentString = '<div ><div ><b>' + data.title + "</b></div>" +
 	'<div >' + self.id + "</div>" +
 	'<div >' + self.name + "</div>" +
 	'<div >' + self.address + "</div>" +
 	'<div >' + self.country + "</div></div>";
 
-        self.infoWindow.setContent(self.contentString);
+  
+	self.infoWindow.setContent('<div ><div ><b>' + data.title + "</b></div>" +
+	'<div >' + self.id + "</div>" +
+	'<div >' + self.name + "</div>" +
+	'<div >' + self.address + "</div>" +
+	'<div >' + self.country + "</div></div>");
 
-        self.infoWindow.open(map, this);
+    self.infoWindow.open(map, this);
 		
-		self.marker.setAnimation(google.maps.Animation.DROP);
+	self.marker.setAnimation(google.maps.Animation.DROP);
 		       
        
 	 });
