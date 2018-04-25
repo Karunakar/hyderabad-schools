@@ -10,6 +10,7 @@
 3. Javascript
 4. Google Api
 5. Kockout.js
+6. Foresqure API
 
 ### License
 This is opensource and my own School Search Project as Udacity Project Assignment .
