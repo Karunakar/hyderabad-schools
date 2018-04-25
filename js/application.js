@@ -22,8 +22,7 @@ SchoolClass = function(data) {
     this.title = data.title;
     this.lat = data.location.lat;
     this.lng = data.location.lng;
-	
-	
+		
 	self.id = "";
 	self.name = "";
 	self.country = "";
@@ -241,11 +240,16 @@ var ViewModel = function() {
 	{
 		self.all_locations.push( new SchoolClass(location_obj));
     }); 
-	
-
-
-    
+	    
 };
+
+
+function showNetworkError()
+{
+	alert(1);
+    $('#map').html('We had an issue with API and Please refer Google API docs.');
+
+}
 
 
 

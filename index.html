@@ -81,19 +81,17 @@
 
 <script async defer
  src=
- "https://maps.googleapis.com/maps/api/js?key=AIzaSyDxjIKxD3TS0h5zOmv0srLyJ-LMtP-qZs4&v=3&callback=initMap" >
+ "https://maps.googleapis.com/maps/api/js?key=AIzaSyDxjIKxD3TS0h5zOmv0srLyJ-LMtP-qZs4&v=3&callback=initMap" onerror="showNetworkError()">
 </script>
 
-	
-
-   
-
-  </body>
+</body>
 </html>
 
 <script>
-
-function initMap() {
+function initMap() 
+{
     ko.applyBindings(new ViewModel());
 }
+
+
 </script>
